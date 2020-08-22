@@ -1,5 +1,5 @@
 import 'package:SewerBaghdad/bloc/allPostsBloc.dart';
-import 'package:SewerBaghdad/repastory/postsRepastory.dart';
+import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/ui_element/allNewsCard.dart';
 import 'package:SewerBaghdad/ui/ui_element/bottomLoader.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,7 +19,7 @@ class _allNewsState extends State<allNews> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => AllPostsBloc(Repo: PostsRepastory())
+        create: (context) => AllPostsBloc(Repo: PostsRepository())
           ..add(FetchAllPosts(p: 1, flage: false)),
         child: allNews1());
   }

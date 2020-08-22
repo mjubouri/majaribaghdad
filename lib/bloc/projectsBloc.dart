@@ -1,12 +1,11 @@
-
 import 'dart:io';
-import 'package:SewerBaghdad/models/allProjectsModel.dart';
-import 'package:SewerBaghdad/models/posts.dart';
-import 'package:SewerBaghdad/repastory/postsRepastory.dart';
-import 'package:meta/meta.dart';
+
+import 'package:SewerBaghdad/models/ProjectModel.dart';
+import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class ProjectsEvent extends Equatable {
@@ -43,12 +42,12 @@ class ProjectsError extends ProjectsState {
 class ProjectsNetworkError extends ProjectsState {}
 
 class ProjectsLoaded extends ProjectsState {
-  final List<RowDataProjects> allPosts;
+  final List<ProjectData> allPosts;
 
   final bool hasReachedMax;
   ProjectsLoaded({this.allPosts, this.hasReachedMax});
 
-  ProjectsLoaded copyWith({List<RowDataProjects> allPosts, bool hasReachedMax}) {
+  ProjectsLoaded copyWith({List<ProjectModel> allPosts, bool hasReachedMax}) {
     return ProjectsLoaded(
         allPosts: allPosts ?? this.allPosts,
         hasReachedMax: hasReachedMax ?? this.hasReachedMax);
@@ -59,7 +58,7 @@ class ProjectsLoaded extends ProjectsState {
 }
 
 class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
-  final PostsRepastory Repo;
+  final PostsRepository Repo;
 
   ProjectsBloc({@required this.Repo}) : super(ProjectsUninitialized());
 
@@ -84,7 +83,7 @@ class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
         if (currentState is ProjectsUninitialized) {
           final posts = await Repo.getAllProjects(event.p);
           yield ProjectsLoaded(
-            allPosts: posts.data.rows,
+            allPosts: posts.data,
             hasReachedMax: false,
           );
           return;
@@ -94,10 +93,10 @@ class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
  
           print("p  " + event.p.toString());
           final posts = await Repo.getAllProjects(event.p);
-          yield posts.data.rows.isEmpty
+          yield posts.data.isEmpty
               ? currentState.copyWith(hasReachedMax: true)
               : ProjectsLoaded(
-                  allPosts: currentState.allPosts + posts.data.rows,
+                  allPosts: currentState.allPosts + posts.data,
                   hasReachedMax: false,
                 );
         }
@@ -113,7 +112,7 @@ class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
         yield ProjectsUninitialized();
         final posts = await Repo.getAllProjects(event.p);
         yield ProjectsLoaded(
-          allPosts: posts.data.rows,
+          allPosts: posts.data,
           hasReachedMax: false,
         );
         return;

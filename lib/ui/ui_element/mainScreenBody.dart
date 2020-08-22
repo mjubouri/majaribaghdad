@@ -1,5 +1,5 @@
 import 'package:SewerBaghdad/bloc/postsBloc.dart';
-import 'package:SewerBaghdad/models/posts.dart';
+import 'package:SewerBaghdad/models/bannerModel.dart';
 import 'package:SewerBaghdad/ui/allProjects.dart';
 import 'package:SewerBaghdad/ui/bottomPages/aboutUs.dart';
 import 'package:SewerBaghdad/ui/customWidget/sliderSection.dart';
@@ -25,7 +25,7 @@ class mainScreenBody extends StatelessWidget {
   final RefreshController refreshController;
   final int current;
   // final String pdfPath;
-  final PostsModel banners;
+  final BannerModel banners;
 
   @override
   Widget build(BuildContext context) {

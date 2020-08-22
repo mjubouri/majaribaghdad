@@ -1,9 +1,10 @@
 
 import 'dart:io';
 
-import 'package:SewerBaghdad/models/notificationSlider.dart';
-import 'package:SewerBaghdad/models/posts.dart';
-import 'package:SewerBaghdad/repastory/postsRepastory.dart';
+import 'package:SewerBaghdad/models/PostModel.dart';
+import 'package:SewerBaghdad/models/TickerPosts.dart';
+import 'package:SewerBaghdad/models/bannerModel.dart';
+import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,13 +45,13 @@ class PostsError extends PostsState {
 class PostsNetworkError extends PostsState {}
 
 class PostsLoaded extends PostsState {
-  final PostsModel banners;
-final NotificationModel notifications;
+  final BannerModel banners;
+final TickerPosts notifications;
   PostsLoaded({this.banners,this.notifications});
 
  PostsLoaded copyWith({
-    PostsModel banners,
-    NotificationModel notifications
+    PostModel banners,
+    TickerPosts notifications
   }) {
     return PostsLoaded(
       banners: banners ?? this.banners,notifications:notifications ??this.notifications
@@ -61,7 +62,7 @@ final NotificationModel notifications;
 }
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
-  final PostsRepastory Repo;
+  final PostsRepository Repo;
 
   PostsBloc({@required this.Repo}) : super(PostsLoading());
 
@@ -78,16 +79,15 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
           final banners = await Repo.getBanners();
           final notifications = await Repo.getNotification();
 
-          yield PostsLoaded( banners:banners,notifications:notifications);
+          yield PostsLoaded(banners: banners, notifications:notifications);
           return;
         
       } on SocketException catch (_) {
         yield PostsNetworkError();
       }catch(_){
+          print(_.toString());
           yield PostsError(_.toString());
-       
-      
-         //print("error "+_);
+
       }
     }}
   }
