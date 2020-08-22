@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:SewerBaghdad/bloc/reportBloc.dart';
 import 'package:SewerBaghdad/models/sendReportBody.dart';
-import 'package:SewerBaghdad/repastory/postsRepastory.dart';
+import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/customWidget/circularProgress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,13 +24,15 @@ class _reportScreenState extends State<reportScreen> {
   TextEditingController content = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();
+  TextEditingController docNumber = TextEditingController();
+  TextEditingController docDate = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: BlocProvider(
         create: (context) {
-          return ReportBloc(Repo: PostsRepastory());
+          return ReportBloc(Repo: PostsRepository());
         },
         child: Container(
           child: Column(
@@ -292,6 +294,85 @@ class _reportScreenState extends State<reportScreen> {
                     ),
                   ),
                   textDirection: TextDirection.rtl),
+              Directionality(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Theme(
+                      data: new ThemeData(
+                        primaryColor: Colors.blueAccent,
+                        primaryColorDark: Colors.red,
+                      ),
+                      child: TextField(
+                        controller: docNumber,
+                        keyboardType: TextInputType.phone,
+
+                        style: TextStyle(fontSize: 18),
+                        decoration: new InputDecoration(
+                            border: new OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(20.0),
+                              ),
+                            ),
+                            hoverColor: Colors.amber,
+                            filled: true,
+                            hintStyle: new TextStyle(color: Colors.grey[800]),
+                            hintText: "",
+                            alignLabelWithHint: true,
+                            labelText: "رقم وصل الجباية",
+                            hasFloatingPlaceholder: true,
+                            labelStyle: TextStyle(
+                                fontSize: 18,
+                                backgroundColor: Colors.transparent,
+                                decorationColor: Colors.transparent),
+                            prefixIcon: const Icon(Icons.email),
+                            helperText: "رقم وصل الجباية",
+                            contentPadding: EdgeInsets.only(
+                                left: 6, right: 6, top: 0, bottom: 15),
+                            fillColor: Colors.white70),
+                      ),
+                    ),
+                  ),
+                  textDirection: TextDirection.rtl),
+
+              Directionality(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Theme(
+                      data: new ThemeData(
+                        primaryColor: Colors.blueAccent,
+                        primaryColorDark: Colors.red,
+                      ),
+                      child: TextField(
+                        controller: docDate,
+                        keyboardType: TextInputType.datetime,
+
+                        style: TextStyle(fontSize: 18),
+                        decoration: new InputDecoration(
+                            border: new OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(20.0),
+                              ),
+                            ),
+                            hoverColor: Colors.amber,
+                            filled: true,
+                            hintStyle: new TextStyle(color: Colors.grey[800]),
+                            hintText: "",
+                            alignLabelWithHint: true,
+                            labelText: "تاريخ وصل الجباية",
+                            hasFloatingPlaceholder: true,
+                            labelStyle: TextStyle(
+                                fontSize: 18,
+                                backgroundColor: Colors.transparent,
+                                decorationColor: Colors.transparent),
+                            prefixIcon: const Icon(Icons.email),
+                            helperText: "تاريخ وصل الجباية",
+                            contentPadding: EdgeInsets.only(
+                                left: 6, right: 6, top: 0, bottom: 15),
+                            fillColor: Colors.white70),
+                      ),
+                    ),
+                  ),
+                  textDirection: TextDirection.rtl),
               Container(
                 margin: EdgeInsets.only(bottom: 20),
                 child: Padding(
@@ -336,8 +417,9 @@ class _reportScreenState extends State<reportScreen> {
                                   BlocProvider.of<ReportBloc>(context).add(SendReport(
                                     SendReportBody(
                                       name: name.text, content: location.text,
+                                       email: email.text,
                                        subject: subject.text, phone: phone.text,
-                                        location: location.text),context:context
+                                        location: location.text, docDate: docDate.text, docNumber: docNumber.text),context:context
                                   ));
                                  
                                 

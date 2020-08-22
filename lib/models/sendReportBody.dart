@@ -10,6 +10,8 @@ class SendReportBody {
         @required this.subject,
         @required this.phone,
         @required this.location,
+        @required this.docNumber,
+        @required this.docDate,
     });
 
     String name;
@@ -18,4 +20,6 @@ class SendReportBody {
     String subject;
     String phone;
     String location;
+    String docNumber;
+    String docDate;
 }

@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:SewerBaghdad/models/PostModel.dart';
 import 'package:SewerBaghdad/models/createReportResponse.dart';
-import 'package:SewerBaghdad/models/posts.dart';
 import 'package:SewerBaghdad/models/sendReportBody.dart';
-import 'package:SewerBaghdad/repastory/postsRepastory.dart';
+import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/ui_element/alertUi.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,7 +49,7 @@ class ReportSendSuccussful extends ReportState {
   ReportSendSuccussful({this.response});
 
   ReportSendSuccussful copyWith({
-    PostsModel allPosts,
+    PostModel allPosts,
   }) {
     return ReportSendSuccussful(response: response ?? this.response);
   }
@@ -59,7 +59,7 @@ class ReportSendSuccussful extends ReportState {
 }
 
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
-  final PostsRepastory Repo;
+  final PostsRepository Repo;
 
   ReportBloc({@required this.Repo}) : super(ReportUninitialized());
 

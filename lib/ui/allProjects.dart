@@ -1,7 +1,6 @@
 import 'package:SewerBaghdad/bloc/allPostsBloc.dart';
 import 'package:SewerBaghdad/bloc/projectsBloc.dart';
-import 'package:SewerBaghdad/repastory/postsRepastory.dart';
-import 'package:SewerBaghdad/ui/ui_element/allNewsCard.dart';
+import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/ui_element/bottomLoader.dart';
 import 'package:SewerBaghdad/ui/ui_element/projectsCard.dart';
 
@@ -21,7 +20,7 @@ class _allProjectsScreenState extends State<allProjectsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => ProjectsBloc(Repo: PostsRepastory())
+        create: (context) => ProjectsBloc(Repo: PostsRepository())
           ..add(FetchAllProjects(p: 1, flage: false)),
         child: allProjects());
   }

@@ -137,7 +137,7 @@ String planBody="""
 والمعدات مع تطوير الكوادر البشرية الملائمة لذلك.""";
 
 
-String baseUrl="http://139.162.142.73/applications/v1/";
+String baseUrl="https://baggovsewdir.com/api/v1/";
 
 
 

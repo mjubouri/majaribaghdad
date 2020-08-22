@@ -1,6 +1,7 @@
 import 'dart:io';
-import 'package:SewerBaghdad/models/posts.dart';
-import 'package:SewerBaghdad/repastory/postsRepastory.dart';
+import 'package:SewerBaghdad/models/PostModel.dart';
+import 'package:SewerBaghdad/models/bannerModel.dart';
+import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,12 +43,12 @@ class AllPostsError extends AllPostsState {
 class AllPostsNetworkError extends AllPostsState {}
 
 class AllPostsLoaded extends AllPostsState {
-  final List<RowData> allPosts;
+  final List<PostData> allPosts;
 
   final bool hasReachedMax;
   AllPostsLoaded({this.allPosts, this.hasReachedMax});
 
-  AllPostsLoaded copyWith({List<RowData> allPosts, bool hasReachedMax}) {
+  AllPostsLoaded copyWith({List<Data> allPosts, bool hasReachedMax}) {
     return AllPostsLoaded(
         allPosts: allPosts ?? this.allPosts,
         hasReachedMax: hasReachedMax ?? this.hasReachedMax);
@@ -58,7 +59,7 @@ class AllPostsLoaded extends AllPostsState {
 }
 
 class AllPostsBloc extends Bloc<AllPostsEvent, AllPostsState> {
-  final PostsRepastory Repo;
+  final PostsRepository Repo;
 
   AllPostsBloc({@required this.Repo}) : super(AllPostsUninitialized());
 
@@ -83,7 +84,7 @@ class AllPostsBloc extends Bloc<AllPostsEvent, AllPostsState> {
         if (currentState is AllPostsUninitialized) {
           final posts = await Repo.getPosts(event.p);
           yield AllPostsLoaded(
-            allPosts: posts.data.rows,
+            allPosts: posts.data,
             hasReachedMax: false,
           );
           return;
@@ -100,10 +101,10 @@ class AllPostsBloc extends Bloc<AllPostsEvent, AllPostsState> {
           //     return;
           print("p  " + event.p.toString());
           final posts = await Repo.getPosts(event.p);
-          yield posts.data.rows.isEmpty
+          yield posts.data.isEmpty
               ? currentState.copyWith(hasReachedMax: true)
               : AllPostsLoaded(
-                  allPosts: currentState.allPosts + posts.data.rows,
+                  allPosts: currentState.allPosts + posts.data,
                   hasReachedMax: false,
                 );
         }
@@ -119,7 +120,7 @@ class AllPostsBloc extends Bloc<AllPostsEvent, AllPostsState> {
         yield AllPostsUninitialized();
         final posts = await Repo.getPosts(event.p);
         yield AllPostsLoaded(
-          allPosts: posts.data.rows,
+          allPosts: posts.data,
           hasReachedMax: false,
         );
         return;

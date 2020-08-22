@@ -1,4 +1,5 @@
-import 'package:SewerBaghdad/models/posts.dart';
+import 'package:SewerBaghdad/models/PostModel.dart';
+import 'package:SewerBaghdad/models/bannerModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import '../newsDetails.dart';
 
 class newsCard extends StatelessWidget {
-  RowData data;
+  PostData data;
   int index;
     newsCard({
     Key key,

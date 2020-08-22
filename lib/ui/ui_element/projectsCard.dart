@@ -1,5 +1,4 @@
-import 'package:SewerBaghdad/models/allProjectsModel.dart';
-import 'package:SewerBaghdad/models/posts.dart';
+import 'package:SewerBaghdad/models/ProjectModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../newsDetails.dart';
 
 class projectsCard extends StatelessWidget {
-  RowDataProjects data;
+  ProjectData data;
   int index;
     projectsCard({
     Key key,

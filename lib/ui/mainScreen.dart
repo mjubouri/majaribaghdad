@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:SewerBaghdad/bloc/postsBloc.dart';
-import 'package:SewerBaghdad/repastory/postsRepastory.dart';
+import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/ui_element/mainScreenBody.dart';
 import 'package:SewerBaghdad/ui/ui_element/notificationSlider.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class _mainScreenState extends State<mainScreen> {
     return Scaffold(
         body: BlocProvider(
       create: (context) {
-        return PostsBloc(Repo: PostsRepastory())..add(FetchPosts());
+        return PostsBloc(Repo: PostsRepository())..add(FetchPosts());
       },
       child: Container(
           child: BlocBuilder<PostsBloc, PostsState>(builder: (context, state) {

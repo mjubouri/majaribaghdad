@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:SewerBaghdad/models/posts.dart';
+import 'package:SewerBaghdad/models/PostModel.dart';
+import 'package:SewerBaghdad/models/bannerModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 class newsDetailsScreen extends StatefulWidget {
   int index;
   bool flage = false;
-  RowData item;
+  PostData item;
   
   newsDetailsScreen([this.index, this.flage, this.item]);
 
@@ -120,7 +121,7 @@ class _newsDetailsScreenState extends State<newsDetailsScreen> {
                                 child: Directionality(
                                     textDirection: TextDirection.rtl,
                                     child: Text(
-                                      "تاريخ النشر  ${widget.item.createdAt}",
+                                      "تاريخ النشر",
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey[800]),

@@ -1,9 +1,10 @@
-import 'package:SewerBaghdad/models/notificationSlider.dart';
+import 'package:SewerBaghdad/models/TickerPosts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class notificationSlider extends StatelessWidget {
-  NotificationModel notifications;
+  TickerPosts notifications;
+
   notificationSlider(
     this.notifications, {
     Key key,
@@ -12,7 +13,7 @@ class notificationSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-      itemCount: notifications.data.count,
+      itemCount: notifications.data.length,
       height: 30,
       reverse: true,
       viewportFraction: 1.0,
@@ -32,7 +33,7 @@ class notificationSlider extends StatelessWidget {
         child: Directionality(
             textDirection: TextDirection.rtl,
             child: Text(
-              notifications.data.rows[itemIndex].title,
+              notifications.data[itemIndex].content,
               maxLines: 1,
               overflow: TextOverflow.visible,
               style: TextStyle(color: Colors.black, fontSize: 16),
