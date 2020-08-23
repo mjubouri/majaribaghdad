@@ -1,43 +1,37 @@
 import 'dart:async';
 
 import 'package:SewerBaghdad/models/PostModel.dart';
-import 'package:SewerBaghdad/models/bannerModel.dart';
+import 'package:SewerBaghdad/ui/customWidget/strings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+class NewsDetailsScreen extends StatefulWidget {
+  final int index;
+  final bool flag;
+  final PostData item;
 
-class newsDetailsScreen extends StatefulWidget {
-  int index;
-  bool flage = false;
-  PostData item;
-  
-  newsDetailsScreen([this.index, this.flage, this.item]);
+  NewsDetailsScreen([this.index, this.flag = false, this.item]);
 
   @override
-  _newsDetailsScreenState createState() => new _newsDetailsScreenState();
+  _NewsDetailsScreenState createState() => new _NewsDetailsScreenState();
 }
 
-class _newsDetailsScreenState extends State<newsDetailsScreen> {
+class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
+  double pos = 700;
 
-  double pos=700;
-
-@override
+  @override
   void initState() {
-    
-   Timer(Duration(milliseconds: 400), () {
-     setState(() {
-       pos=260;
-     }
-     );
-  
-});
+    Timer(Duration(milliseconds: 400), () {
+      setState(() {
+        pos = 260;
+      });
+    });
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
@@ -66,14 +60,14 @@ class _newsDetailsScreenState extends State<newsDetailsScreen> {
               children: <Widget>[
                 Container(
                   child: Hero(
-                    tag: widget.flage
+                    tag: widget.flag
                         ? "hero${widget.index}"
                         : "image${widget.index}",
                     child: CachedNetworkImage(
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width,
                       height: 300,
-                      imageUrl: widget.item.image,
+                      imageUrl: baseMediaUrl + widget.item.image,
                       placeholder: (context, url) =>
                           Image.asset("assets/images/logo.jpg"),
                       errorWidget: (context, url, error) =>
@@ -82,7 +76,7 @@ class _newsDetailsScreenState extends State<newsDetailsScreen> {
                   ),
                 ),
                 AnimatedPositioned(
-                  top:pos,
+                  top: pos,
                   curve: Curves.linear,
                   duration: Duration(milliseconds: 400),
                   child: Container(

@@ -14,8 +14,8 @@ abstract class ProjectsEvent extends Equatable {
 }
 
 class FetchAllProjects extends ProjectsEvent {
-  int p;
-  bool flage;
+  final int p;
+  final bool flage;
 
   FetchAllProjects({this.p, this.flage});
 
@@ -36,6 +36,7 @@ class ProjectsLoading extends ProjectsState {}
 
 class ProjectsError extends ProjectsState {
   final string;
+
   ProjectsError(this.string);
 }
 
@@ -45,6 +46,7 @@ class ProjectsLoaded extends ProjectsState {
   final List<ProjectData> allPosts;
 
   final bool hasReachedMax;
+
   ProjectsLoaded({this.allPosts, this.hasReachedMax});
 
   ProjectsLoaded copyWith({List<ProjectModel> allPosts, bool hasReachedMax}) {
@@ -58,9 +60,9 @@ class ProjectsLoaded extends ProjectsState {
 }
 
 class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
-  final PostsRepository Repo;
+  final PostsRepository repo;
 
-  ProjectsBloc({@required this.Repo}) : super(ProjectsUninitialized());
+  ProjectsBloc({@required this.repo}) : super(ProjectsUninitialized());
 
   @override
   Stream<Transition<ProjectsEvent, ProjectsState>> transformEvents(
@@ -81,7 +83,7 @@ class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
       print("bloc pressed");
       try {
         if (currentState is ProjectsUninitialized) {
-          final posts = await Repo.getAllProjects(event.p);
+          final posts = await repo.getAllProjects(event.p);
           yield ProjectsLoaded(
             allPosts: posts.data,
             hasReachedMax: false,
@@ -90,9 +92,8 @@ class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
         }
 
         if (currentState is ProjectsLoaded) {
- 
           print("p  " + event.p.toString());
-          final posts = await Repo.getAllProjects(event.p);
+          final posts = await repo.getAllProjects(event.p);
           yield posts.data.isEmpty
               ? currentState.copyWith(hasReachedMax: true)
               : ProjectsLoaded(
@@ -110,7 +111,7 @@ class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
       try {
         print("bloc pressed");
         yield ProjectsUninitialized();
-        final posts = await Repo.getAllProjects(event.p);
+        final posts = await repo.getAllProjects(event.p);
         yield ProjectsLoaded(
           allPosts: posts.data,
           hasReachedMax: false,
@@ -125,5 +126,5 @@ class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
   }
 
   bool _hasReachedMax(ProjectsState state) =>
-      state is  ProjectsLoaded && state.hasReachedMax;
+      state is ProjectsLoaded && state.hasReachedMax;
 }

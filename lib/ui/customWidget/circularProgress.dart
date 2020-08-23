@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class circularProgress extends StatelessWidget {
-  const circularProgress({
+class CircularProgress extends StatelessWidget {
+  const CircularProgress({
     Key key,
   }) : super(key: key);
 

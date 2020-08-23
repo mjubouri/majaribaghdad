@@ -1,11 +1,13 @@
 import 'package:SewerBaghdad/models/bannerModel.dart';
+import 'package:SewerBaghdad/ui/customWidget/strings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class sliderSection extends StatefulWidget {
-  sliderSection({
+// ignore: must_be_immutable
+class SliderSection extends StatefulWidget {
+  SliderSection({
     Key key,
     @required int current,
     @required this.banners,
@@ -13,21 +15,17 @@ class sliderSection extends StatefulWidget {
         super(key: key);
 
   int _current;
-  BannerModel banners;
+  final BannerModel banners;
 
   @override
-  _sliderSectionState createState() => _sliderSectionState();
+  _SliderSectionState createState() => _SliderSectionState();
 }
 
-class _sliderSectionState extends State<sliderSection> {
- 
-
+class _SliderSectionState extends State<SliderSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Stack(
-        
-        children: <Widget>[
+      child: Stack(children: <Widget>[
         CarouselSlider.builder(
           itemCount: widget.banners.data.length,
           height: 200,
@@ -52,25 +50,16 @@ class _sliderSectionState extends State<sliderSection> {
               onTap: () {},
               child: Container(
                   margin: EdgeInsets.only(left: 5, right: 5),
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: Stack(
-
                     children: <Widget>[
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: CachedNetworkImage(
                           fit: BoxFit.cover,
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
+                          width: MediaQuery.of(context).size.width,
                           height: 220,
-
-                          imageUrl:
-                          widget.banners.data[itemIndex].image,
+                          imageUrl: baseMediaUrl + widget.banners.data[itemIndex].image,
                           placeholder: (context, url) =>
                               Image.asset("assets/images/logo.jpg"),
                           errorWidget: (context, url, error) =>
@@ -99,7 +88,7 @@ class _sliderSectionState extends State<sliderSection> {
 //                        ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(right: 10,left: 10),
+                        padding: EdgeInsets.only(right: 10, left: 10),
                         width: MediaQuery.of(context).size.width,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -109,15 +98,14 @@ class _sliderSectionState extends State<sliderSection> {
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue[900].withOpacity(0.4),
                                   borderRadius: BorderRadius.circular(10)),
-                              padding: EdgeInsets.symmetric(horizontal: 5,vertical: 8),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 8),
                               child: Directionality(
                                 child: Text(
-
                                   widget.banners.data[itemIndex].title,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-
                                       fontSize: 20, color: Colors.white),
                                 ),
                                 textDirection: TextDirection.rtl,
@@ -171,10 +159,10 @@ class _sliderSectionState extends State<sliderSection> {
                   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: widget._current ==
-                          widget.banners.data.indexOf(image)
-                          ? Colors.deepOrange
-                          : Color.fromRGBO(0, 0, 0, 0.4)),
+                      color:
+                          widget._current == widget.banners.data.indexOf(image)
+                              ? Colors.deepOrange
+                              : Color.fromRGBO(0, 0, 0, 0.4)),
                 );
               }).toList(),
             ))

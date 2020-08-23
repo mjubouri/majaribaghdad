@@ -2,39 +2,39 @@ import 'package:SewerBaghdad/bloc/allPostsBloc.dart';
 import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/ui_element/allNewsCard.dart';
 import 'package:SewerBaghdad/ui/ui_element/bottomLoader.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'customWidget/circularProgress.dart';
 import 'customWidget/networkError.dart';
 
-class allNews extends StatefulWidget {
+class AllNews extends StatefulWidget {
   @override
-  _allNewsState createState() => _allNewsState();
+  _AllNewsState createState() => _AllNewsState();
 }
 
-class _allNewsState extends State<allNews> {
+class _AllNewsState extends State<AllNews> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => AllPostsBloc(Repo: PostsRepository())
+        create: (context) => AllPostsBloc(repo: PostsRepository())
           ..add(FetchAllPosts(p: 1, flage: false)),
-        child: allNews1());
+        child: AllNewsChild());
   }
 }
 
-class allNews1 extends StatefulWidget {
+class AllNewsChild extends StatefulWidget {
   @override
-  _allNews1State createState() => new _allNews1State();
+  _AllNewsChildState createState() => new _AllNewsChildState();
 }
 
-class _allNews1State extends State<allNews1> {
+class _AllNewsChildState extends State<AllNewsChild> {
   final _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
   AllPostsBloc _postBloc;
   int pageNum = 1;
+
   @override
   void initState() {
     super.initState();
@@ -71,16 +71,16 @@ class _allNews1State extends State<allNews1> {
               if (state is AllPostsUninitialized) {
                 return Center(
                   child: Container(
-                      width: 40, height: 40, child: circularProgress()),
+                      width: 40, height: 40, child: CircularProgress()),
                 );
               }
               if (state is AllPostsNetworkError) {
                 pageNum = 1;
-                return networkError("لا يوجد اتصال");
+                return NetworkError("لا يوجد اتصال");
               }
               if (state is AllPostsError) {
                 pageNum = 1;
-                return networkError(state.string);
+                return NetworkError(state.string);
               }
               if (state is AllPostsLoaded) {
                 pageNum += 1;
@@ -91,7 +91,7 @@ class _allNews1State extends State<allNews1> {
                             child: state.allPosts.length < 5
                                 ? Container()
                                 : BottomLoader())
-                        : newsCard(data: state.allPosts[index], index: index);
+                        : NewsCard(data: state.allPosts[index], index: index);
                   },
                   itemCount: state.hasReachedMax
                       ? state.allPosts.length
@@ -120,11 +120,11 @@ class _allNews1State extends State<allNews1> {
       _postBloc.add(FetchAllPosts(p: pageNum, flage: false));
     }
   }
-  // bool handelScrollNotification(ScrollNotification scroll) {
-  //   if (scroll is ScrollEndNotification &&
-  //       _scrollController.position.extentAfter == 0) {
-  //     _postBloc.add(FetchAllPosts(p: 1, flage: false));
-  //   }
-  //   return false;
-  // }
+// bool handelScrollNotification(ScrollNotification scroll) {
+//   if (scroll is ScrollEndNotification &&
+//       _scrollController.position.extentAfter == 0) {
+//     _postBloc.add(FetchAllPosts(p: 1, flage: false));
+//   }
+//   return false;
+// }
 }

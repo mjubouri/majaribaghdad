@@ -1,27 +1,26 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:SewerBaghdad/bloc/postsBloc.dart';
 import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/ui_element/mainScreenBody.dart';
 import 'package:SewerBaghdad/ui/ui_element/notificationSlider.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'customWidget/circularProgress.dart';
-import 'customWidget/networkError.dart';
 import 'customWidget/networkError2.dart';
 
-class mainScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   @override
-  _mainScreenState createState() => new _mainScreenState();
+  _MainScreenState createState() => new _MainScreenState();
 }
 
-class _mainScreenState extends State<mainScreen> {
+class _MainScreenState extends State<MainScreen> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   int _current = 0;
@@ -45,6 +44,7 @@ class _mainScreenState extends State<mainScreen> {
   }
 
   String pdfPath = "";
+
   @override
   void initState() {
     super.initState();
@@ -60,33 +60,35 @@ class _mainScreenState extends State<mainScreen> {
     return Scaffold(
         body: BlocProvider(
       create: (context) {
-        return PostsBloc(Repo: PostsRepository())..add(FetchPosts());
+        return PostsBloc(postsRepository: PostsRepository())
+          ..add(FetchPosts());
       },
       child: Container(
           child: BlocBuilder<PostsBloc, PostsState>(builder: (context, state) {
         if (state is PostsLoading) {
           return Center(
-            child: Container(width: 40, height: 40, child: circularProgress()),
+            child: Container(width: 40, height: 40, child: CircularProgress()),
           );
         }
         if (state is PostsNetworkError) {
-          return networkError2("لا يوجد اتصال");
+          return NetworkError2("لا يوجد اتصال");
         }
         if (state is PostsError) {
-          return networkError2("حدث خطأ ما");
+          return NetworkError2("حدث خطأ ما");
         }
         if (state is PostsLoaded) {
           return Column(
             children: <Widget>[
-              notificationSlider(state.notifications),
-              mainScreenBody(
+              NotificationSlider(state.notifications),
+              MainScreenBody(
                 current: _current,
                 refreshController: _refreshController,
                 banners: state.banners,
               )
             ],
           );
-        }
+        } else
+          return Container();
       })),
     ));
   }

@@ -4,20 +4,18 @@ import 'package:SewerBaghdad/bloc/reportBloc.dart';
 import 'package:SewerBaghdad/models/sendReportBody.dart';
 import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/customWidget/circularProgress.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-
-
+import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:toast/toast.dart';
 
-class reportScreen extends StatefulWidget {
+class ReportScreen extends StatefulWidget {
   @override
-  _reportScreenState createState() => _reportScreenState();
+  _ReportScreenState createState() => _ReportScreenState();
 }
 
-class _reportScreenState extends State<reportScreen> {
+class _ReportScreenState extends State<ReportScreen> {
   TextEditingController name = TextEditingController();
   TextEditingController location = TextEditingController();
   TextEditingController subject = TextEditingController();
@@ -27,12 +25,14 @@ class _reportScreenState extends State<reportScreen> {
   TextEditingController docNumber = TextEditingController();
   TextEditingController docDate = TextEditingController();
 
+  DateTime selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: BlocProvider(
         create: (context) {
-          return ReportBloc(Repo: PostsRepository());
+          return ReportBloc(repo: PostsRepository());
         },
         child: Container(
           child: Column(
@@ -66,7 +66,7 @@ class _reportScreenState extends State<reportScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Theme(
                       data: new ThemeData(
-                        primaryColor: Colors.blueAccent,
+                        primaryColor: Colors.deepOrangeAccent,
                         primaryColorDark: Colors.red,
                       ),
                       child: TextField(
@@ -85,7 +85,6 @@ class _reportScreenState extends State<reportScreen> {
                             hintText: "",
                             alignLabelWithHint: true,
                             labelText: "الأسم الكامل",
-                            hasFloatingPlaceholder: true,
                             labelStyle: TextStyle(
                                 fontSize: 18,
                                 backgroundColor: Colors.transparent,
@@ -104,7 +103,7 @@ class _reportScreenState extends State<reportScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Theme(
                       data: new ThemeData(
-                        primaryColor: Colors.blueAccent,
+                        primaryColor: Colors.deepOrangeAccent,
                         primaryColorDark: Colors.red,
                       ),
                       child: TextField(
@@ -123,7 +122,6 @@ class _reportScreenState extends State<reportScreen> {
                             hintText: "",
                             alignLabelWithHint: true,
                             labelText: "العنوان",
-                            hasFloatingPlaceholder: true,
                             labelStyle: TextStyle(
                                 fontSize: 18,
                                 backgroundColor: Colors.transparent,
@@ -142,7 +140,7 @@ class _reportScreenState extends State<reportScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Theme(
                       data: new ThemeData(
-                        primaryColor: Colors.blueAccent,
+                        primaryColor: Colors.deepOrangeAccent,
                         primaryColorDark: Colors.red,
                       ),
                       child: TextField(
@@ -161,7 +159,6 @@ class _reportScreenState extends State<reportScreen> {
                             hintText: "",
                             alignLabelWithHint: true,
                             labelText: "موضوع الشكوى",
-                            hasFloatingPlaceholder: true,
                             labelStyle: TextStyle(
                                 fontSize: 18,
                                 backgroundColor: Colors.transparent,
@@ -180,7 +177,7 @@ class _reportScreenState extends State<reportScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Theme(
                       data: new ThemeData(
-                        primaryColor: Colors.blueAccent,
+                        primaryColor: Colors.deepOrangeAccent,
                         primaryColorDark: Colors.red,
                       ),
                       child: TextField(
@@ -200,7 +197,6 @@ class _reportScreenState extends State<reportScreen> {
                             hintText: "",
                             alignLabelWithHint: true,
                             labelText: "تفاصيل الشكوى",
-                            hasFloatingPlaceholder: true,
                             labelStyle: TextStyle(
                                 fontSize: 18,
                                 backgroundColor: Colors.transparent,
@@ -219,7 +215,7 @@ class _reportScreenState extends State<reportScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Theme(
                       data: new ThemeData(
-                        primaryColor: Colors.blueAccent,
+                        primaryColor: Colors.deepOrangeAccent,
                         primaryColorDark: Colors.red,
                       ),
                       child: TextField(
@@ -235,13 +231,10 @@ class _reportScreenState extends State<reportScreen> {
                             ),
                             hoverColor: Colors.amber,
                             filled: true,
-                            
                             hintStyle: new TextStyle(color: Colors.grey[800]),
                             hintText: "",
                             alignLabelWithHint: true,
-                            
                             labelText: "رقم الهاتف",
-                            hasFloatingPlaceholder: true,
                             labelStyle: TextStyle(
                                 fontSize: 18,
                                 backgroundColor: Colors.transparent,
@@ -260,13 +253,12 @@ class _reportScreenState extends State<reportScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Theme(
                       data: new ThemeData(
-                        primaryColor: Colors.blueAccent,
+                        primaryColor: Colors.deepOrangeAccent,
                         primaryColorDark: Colors.red,
                       ),
                       child: TextField(
                         controller: email,
                         keyboardType: TextInputType.emailAddress,
-                      
                         style: TextStyle(fontSize: 18),
                         decoration: new InputDecoration(
                             border: new OutlineInputBorder(
@@ -280,7 +272,6 @@ class _reportScreenState extends State<reportScreen> {
                             hintText: "",
                             alignLabelWithHint: true,
                             labelText: "البريد الألكتروني",
-                            hasFloatingPlaceholder: true,
                             labelStyle: TextStyle(
                                 fontSize: 18,
                                 backgroundColor: Colors.transparent,
@@ -299,13 +290,12 @@ class _reportScreenState extends State<reportScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Theme(
                       data: new ThemeData(
-                        primaryColor: Colors.blueAccent,
+                        primaryColor: Colors.deepOrangeAccent,
                         primaryColorDark: Colors.red,
                       ),
                       child: TextField(
                         controller: docNumber,
                         keyboardType: TextInputType.phone,
-
                         style: TextStyle(fontSize: 18),
                         decoration: new InputDecoration(
                             border: new OutlineInputBorder(
@@ -319,13 +309,12 @@ class _reportScreenState extends State<reportScreen> {
                             hintText: "",
                             alignLabelWithHint: true,
                             labelText: "رقم وصل الجباية",
-                            hasFloatingPlaceholder: true,
                             labelStyle: TextStyle(
                                 fontSize: 18,
                                 backgroundColor: Colors.transparent,
                                 decorationColor: Colors.transparent),
-                            prefixIcon: const Icon(Icons.email),
-                            helperText: "رقم وصل الجباية",
+                            prefixIcon: const Icon(Icons.insert_drive_file),
+                            helperText: "يرجى ادخال رقم وصل الجباية",
                             contentPadding: EdgeInsets.only(
                                 left: 6, right: 6, top: 0, bottom: 15),
                             fillColor: Colors.white70),
@@ -333,42 +322,45 @@ class _reportScreenState extends State<reportScreen> {
                     ),
                   ),
                   textDirection: TextDirection.rtl),
-
               Directionality(
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Theme(
                       data: new ThemeData(
-                        primaryColor: Colors.blueAccent,
+                        primaryColor: Colors.deepOrangeAccent,
                         primaryColorDark: Colors.red,
                       ),
-                      child: TextField(
-                        controller: docDate,
-                        keyboardType: TextInputType.datetime,
-
-                        style: TextStyle(fontSize: 18),
-                        decoration: new InputDecoration(
-                            border: new OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(20.0),
-                              ),
-                            ),
-                            hoverColor: Colors.amber,
-                            filled: true,
-                            hintStyle: new TextStyle(color: Colors.grey[800]),
-                            hintText: "",
-                            alignLabelWithHint: true,
-                            labelText: "تاريخ وصل الجباية",
-                            hasFloatingPlaceholder: true,
-                            labelStyle: TextStyle(
-                                fontSize: 18,
-                                backgroundColor: Colors.transparent,
-                                decorationColor: Colors.transparent),
-                            prefixIcon: const Icon(Icons.email),
-                            helperText: "تاريخ وصل الجباية",
-                            contentPadding: EdgeInsets.only(
-                                left: 6, right: 6, top: 0, bottom: 15),
-                            fillColor: Colors.white70),
+                      child: GestureDetector(
+                        onTap: () => _selectDate(context),
+                        child: AbsorbPointer(
+                          child: TextField(
+                            controller: docDate,
+                            keyboardType: TextInputType.datetime,
+                            style: TextStyle(fontSize: 18),
+                            decoration: new InputDecoration(
+                                border: new OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(20.0),
+                                  ),
+                                ),
+                                hoverColor: Colors.amber,
+                                filled: true,
+                                hintStyle:
+                                    new TextStyle(color: Colors.grey[800]),
+                                hintText: "",
+                                alignLabelWithHint: true,
+                                labelText: "تاريخ وصل الجباية",
+                                labelStyle: TextStyle(
+                                    fontSize: 18,
+                                    backgroundColor: Colors.transparent,
+                                    decorationColor: Colors.transparent),
+                                prefixIcon: const Icon(Icons.date_range),
+                                helperText: "يرجى ادخال تاريخ وصل الجباية",
+                                contentPadding: EdgeInsets.only(
+                                    left: 6, right: 6, top: 0, bottom: 15),
+                                fillColor: Colors.white70),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -379,15 +371,14 @@ class _reportScreenState extends State<reportScreen> {
                     padding: const EdgeInsets.all(3.0),
                     child: BlocBuilder<ReportBloc, ReportState>(
                         builder: (context, state) {
-                          
                       if (state is SendingReport) {
                         return Container(
                             width: 35,
                             height: 35,
-                            child:
-                                Container(width: 30, child: circularProgress()));
+                            child: Container(
+                                width: 30, child: CircularProgress()));
                       }
-                 
+
                       if (state is ReportUninitialized) {
                         return Container(
                           decoration: BoxDecoration(
@@ -414,21 +405,24 @@ class _reportScreenState extends State<reportScreen> {
                                     subject.text.isNotEmpty &&
                                     phone.text.isNotEmpty &&
                                     content.text.isNotEmpty) {
-                                  BlocProvider.of<ReportBloc>(context).add(SendReport(
-                                    SendReportBody(
-                                      name: name.text, content: location.text,
-                                       email: email.text,
-                                       subject: subject.text, phone: phone.text,
-                                        location: location.text, docDate: docDate.text, docNumber: docNumber.text),context:context
-                                  ));
-                                 
-                                
-                                }else if(phone.text.length<11){
-  Toast.show("يرجى أدخال رقم هاتف صحيح", context,
+                                  BlocProvider.of<ReportBloc>(context).add(
+                                      SendReport(
+                                          SendReportBody(
+                                              name: name.text,
+                                              content: location.text,
+                                              email: email.text,
+                                              subject: subject.text,
+                                              phone: phone.text,
+                                              location: location.text,
+                                              docDate: docDate.text,
+                                              docNumber: docNumber.text),
+                                          context: context));
+                                } else if (phone.text.length < 11) {
+                                  Toast.show(
+                                      "يرجى أدخال رقم هاتف صحيح", context,
                                       duration: Toast.LENGTH_LONG,
                                       gravity: Toast.BOTTOM);
-                                }
-                                 else {
+                                } else {
                                   Toast.show("يرجى أكمال جميع الحقول", context,
                                       duration: Toast.LENGTH_LONG,
                                       gravity: Toast.BOTTOM);
@@ -437,12 +431,12 @@ class _reportScreenState extends State<reportScreen> {
                             ),
                           ),
                         );
-                        
-                      }
-                    })
-                    //
+                      } else
+                        return Container();
+                        })
+                  //
 
-                    ),
+                ),
               ),
             ],
           ),
@@ -451,5 +445,15 @@ class _reportScreenState extends State<reportScreen> {
     );
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    return DatePicker.showDatePicker(
+        context, dateFormat: 'yyyy-M-d',
+        locale: DateTimePickerLocale.ar,
+        onConfirm: (date, value) {
+          setState(() {
+            docDate.text = date.toString();
+          });
+        });
+  }
 
 }
