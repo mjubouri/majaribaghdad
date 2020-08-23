@@ -1,15 +1,8 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-import 'package:native_pdf_view/native_pdf_view.dart';
+import 'package:flutter/material.dart';import 'package:native_pdf_view/native_pdf_view.dart';
 
 class PDFScreen extends StatefulWidget {
- // final String path;
+  // final String path;
 
   PDFScreen({Key key}) : super(key: key);
 
@@ -17,21 +10,22 @@ class PDFScreen extends StatefulWidget {
 }
 
 class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
+  PdfController _pdfController;
 
- PdfController _pdfController;
-
-@override
+  @override
   void initState() {
-  _pdfController = PdfController(
+    _pdfController = PdfController(
       document: PdfDocument.openAsset('assets/pdf.pdf'),
     );
     super.initState();
   }
- @override
+
+  @override
   void dispose() {
     _pdfController.dispose();
     super.dispose();
   }
+
   // void _loadFromAssets() async {
   //   setState(() {
   //     _isLoading = true;
@@ -58,18 +52,14 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-     title: Directionality(textDirection: TextDirection.rtl,
-        child: Text("الهيكل التنظيمي")),
+        title: Directionality(
+            textDirection: TextDirection.rtl, child: Text("الهيكل التنظيمي")),
       ),
       body: PdfView(
-            documentLoader: Center(child: CircularProgressIndicator()),
-            pageLoader: Center(child: CircularProgressIndicator()),
-            controller: _pdfController,
-           
-          
-          ),
+        documentLoader: Center(child: CircularProgressIndicator()),
+        pageLoader: Center(child: CircularProgressIndicator()),
+        controller: _pdfController,
+      ),
     );
   }
- 
-
 }

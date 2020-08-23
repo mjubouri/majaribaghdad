@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
-class ourProjects extends StatefulWidget {
-  String title;
-  String body;
-  String appTitle;
-  bool flage = false;
-  ourProjects(this.title, this.body, this.appTitle, [this.flage = false]);
+class OurProjects extends StatefulWidget {
+  final String title;
+  final String body;
+  final String appTitle;
+  final bool flag;
+
+  OurProjects(this.title, this.body, this.appTitle, [this.flag = false]);
 
   @override
-  _ourProjectsState createState() => _ourProjectsState();
+  _OurProjectsState createState() => _OurProjectsState();
 }
 
-class _ourProjectsState extends State<ourProjects> {
+class _OurProjectsState extends State<OurProjects> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +57,7 @@ class _ourProjectsState extends State<ourProjects> {
                 height: 20,
               ),
               Container(
-                child: widget.flage
+                child: widget.flag
                     ? Text("فديو تعريفي عن الدائرة ",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold))
@@ -67,7 +67,7 @@ class _ourProjectsState extends State<ourProjects> {
                 height: 20,
               ),
               Container(
-                child: widget.flage
+                child: widget.flag
                     ? Stack(
                         children: <Widget>[
                           Image.asset(

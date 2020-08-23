@@ -4,7 +4,6 @@ import 'package:SewerBaghdad/models/PostModel.dart';
 import 'package:SewerBaghdad/models/ProjectModel.dart';
 import 'package:SewerBaghdad/models/TickerPosts.dart';
 import 'package:SewerBaghdad/models/bannerModel.dart';
-import 'package:SewerBaghdad/models/createReportResponse.dart';
 import 'package:SewerBaghdad/models/sendReportBody.dart';
 import 'package:SewerBaghdad/ui/customWidget/strings.dart';
 import 'package:http/http.dart';
@@ -14,13 +13,13 @@ class PostsRepository {
   Future<PostModel> getPosts(int p) async {
     final response = await get(baseUrl + "posts?p=$p&s=5");
     if (response.statusCode == 200) {
-      return PostModelFromJson(response.body);
+      return postModelFromJson(response.body);
     } else {
       throw Exception('حدث خطأ ما');
     }
   }
 
-  PostModel PostModelFromJson(String str) =>
+  PostModel postModelFromJson(String str) =>
       PostModel.fromJson(json.decode(str));
 
   Future<ProjectModel> getAllProjects(int p) async {
@@ -52,7 +51,7 @@ class PostsRepository {
     }
   }
 
-  Future<CreateReportResponse> createFeedbck(SendReportBody body) async {
+  Future<bool> createFeedback(SendReportBody body) async {
     final response = await post(baseUrl + "complaints",
         headers: {
           "Content-Type": "application/json",
@@ -65,18 +64,17 @@ class PostsRepository {
           "subject": body.subject,
           "phone": body.phone,
           "address": body.location,
+          "message": 'such a test',
           "doc_number": body.docNumber,
           "doc_date": body.docDate
         }));
     Logger().d(response.request);
     if (response.statusCode == 201 || response.statusCode == 200) {
-      //   print(json.decode(response.body)["message"]);
-      return createReportResponseFromJson(response.body);
+      print(json.decode(response.body)["message"]);
+      return true;
     } else {
-      throw Exception(json.decode(response.body)["message"]);
+      throw Exception(json.decode(response.body));
     }
   }
 
-  CreateReportResponse createReportResponseFromJson(String str) =>
-      CreateReportResponse.fromJson(json.decode(str));
 }

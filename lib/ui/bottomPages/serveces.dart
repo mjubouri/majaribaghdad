@@ -1,9 +1,8 @@
 import 'package:SewerBaghdad/ui/customWidget/strings.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-
-class servecesScreen extends StatelessWidget {
+class ServicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -19,9 +18,10 @@ class servecesScreen extends StatelessWidget {
                       Container(
                           margin: EdgeInsets.only(bottom: 20),
                           child: Text(servicesTitle,
-                              style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold))),
-                      Text(servicesBody
-                        ,
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold))),
+                      Text(
+                        servicesBody,
                         style: TextStyle(fontSize: 15),
                       ),
                     ],

@@ -2,40 +2,40 @@ import 'package:SewerBaghdad/bloc/allPostsBloc.dart';
 import 'package:SewerBaghdad/bloc/projectsBloc.dart';
 import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/ui_element/bottomLoader.dart';
-import 'package:SewerBaghdad/ui/ui_element/projectsCard.dart';
-
-import 'package:flutter/material.dart';
+import 'package:SewerBaghdad/ui/ui_element/project_card.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'customWidget/circularProgress.dart';
 import 'customWidget/networkError.dart';
 
-class allProjectsScreen extends StatefulWidget {
+class AllProjectsScreen extends StatefulWidget {
   @override
-  _allProjectsScreenState createState() => _allProjectsScreenState();
+  _AllProjectsScreenState createState() => _AllProjectsScreenState();
 }
 
-class _allProjectsScreenState extends State<allProjectsScreen> {
+class _AllProjectsScreenState extends State<AllProjectsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => ProjectsBloc(Repo: PostsRepository())
+        create: (context) => ProjectsBloc(repo: PostsRepository())
           ..add(FetchAllProjects(p: 1, flage: false)),
-        child: allProjects());
+        child: AllProjectsChild());
   }
 }
 
-class allProjects extends StatefulWidget {
+class AllProjectsChild extends StatefulWidget {
   @override
-  _allProjectsState createState() => new _allProjectsState();
+  _AllProjectsChildState createState() => new _AllProjectsChildState();
 }
 
-class _allProjectsState extends State<allProjects> {
+class _AllProjectsChildState extends State<AllProjectsChild> {
   final _scrollController = ScrollController();
   final _scrollThreshold = 200.0;
   ProjectsBloc _postBloc;
   int pageNum = 1;
+
   @override
   void initState() {
     super.initState();
@@ -67,32 +67,32 @@ class _allProjectsState extends State<allProjects> {
         body: Container(
             padding: EdgeInsets.all(5),
             child: BlocBuilder<ProjectsBloc, ProjectsState>(
-                // ignore: missing_return
                 builder: (context, state) {
               if (state is ProjectsUninitialized) {
                 return Center(
                   child: Container(
-                      width: 40, height: 40, child: circularProgress()),
+                      width: 40, height: 40, child: CircularProgress()),
                 );
               }
               if (state is AllPostsNetworkError) {
                 pageNum = 1;
-                return networkError("لا يوجد اتصال");
+                return NetworkError("لا يوجد اتصال");
               }
               if (state is ProjectsError) {
                 pageNum = 1;
-                return networkError(state.string);
+                return NetworkError(state.string);
               }
               if (state is ProjectsLoaded) {
                 pageNum += 1;
                 return ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
                     return index >= state.allPosts.length
-                        ?   Container(
+                        ? Container(
                             child: state.allPosts.length < 5
                                 ? Container()
                                 : BottomLoader())
-                        : projectsCard(data: state.allPosts[index], index: index);
+                        : ProjectCard(
+                            data: state.allPosts[index], index: index);
                   },
                   itemCount: state.hasReachedMax
                       ? state.allPosts.length
@@ -101,7 +101,6 @@ class _allProjectsState extends State<allProjects> {
                 );
               } else {
                 return Container(
-                 
                   child: Center(child: Text("something wrong")),
                 );
               }
@@ -122,11 +121,11 @@ class _allProjectsState extends State<allProjects> {
       _postBloc.add(FetchAllProjects(p: pageNum, flage: false));
     }
   }
-  // bool handelScrollNotification(ScrollNotification scroll) {
-  //   if (scroll is ScrollEndNotification &&
-  //       _scrollController.position.extentAfter == 0) {
-  //     _postBloc.add(FetchAllPosts(p: 1, flage: false));
-  //   }
-  //   return false;
-  // }
+// bool handelScrollNotification(ScrollNotification scroll) {
+//   if (scroll is ScrollEndNotification &&
+//       _scrollController.position.extentAfter == 0) {
+//     _postBloc.add(FetchAllPosts(p: 1, flage: false));
+//   }
+//   return false;
+// }
 }

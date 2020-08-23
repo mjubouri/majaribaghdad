@@ -1,24 +1,21 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../allNewsScreen.dart';
 import '../mainScreen.dart';
 
+class MyDrawer extends StatefulWidget {
+  final int index;
 
-
-
-class drawar extends StatefulWidget {
-  int index;
   // int notifNum=0;
   //  int cartNum=0;
-  drawar({Key key, @required this.index}) : super(key: key);
+  MyDrawer({Key key, @required this.index}) : super(key: key);
 
   @override
-  _drawarState createState() => _drawarState();
+  _MyDrawerState createState() => _MyDrawerState();
 }
 
-class _drawarState extends State<drawar> {
+class _MyDrawerState extends State<MyDrawer> {
   String name = "";
 
   String image = "";
@@ -30,10 +27,7 @@ class _drawarState extends State<drawar> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +43,6 @@ class _drawarState extends State<drawar> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                  
                     Container(
                       margin: EdgeInsets.only(right: 5, top: 5),
                       child: Directionality(
@@ -62,8 +55,8 @@ class _drawarState extends State<drawar> {
                   ],
                 ),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    ),
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
             Directionality(
@@ -74,35 +67,34 @@ class _drawarState extends State<drawar> {
                     if (widget.index == 6) {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (_) {
-                        return allNews();
+                        return AllNews();
                       }));
                     } else {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return allNews();
+                        return AllNews();
                       }));
                     }
                   },
                   selected: widget.index == 6 ? true : false,
-                  title: Text("الأخبار",
-                      style: TextStyle(fontSize: 16)),
+                  title: Text("الأخبار", style: TextStyle(fontSize: 16)),
                   leading: Icon(Icons.playlist_add_check),
                 )),
             Directionality(
               textDirection: TextDirection.rtl,
               child: ListTile(
-            onTap: (){
-                Scaffold.of(cont).openDrawer();
+                onTap: () {
+                  Scaffold.of(cont).openDrawer();
                   if (widget.index == 1) {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (_) {
-                      return mainScreen();
+                      return MainScreen();
                     }));
                   } else {
                     Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return mainScreen();
+                      return MainScreen();
                     }));
                   }
-            },
+                },
                 selected: widget.index == 1 ? true : false,
                 title: Text("عن الدائرة", style: TextStyle(fontSize: 16)),
                 leading: Icon(Icons.notifications),
@@ -116,11 +108,11 @@ class _drawarState extends State<drawar> {
                   if (widget.index == 2) {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (_) {
-                      return mainScreen();
+                      return MainScreen();
                     }));
                   } else {
                     Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return mainScreen();
+                      return MainScreen();
                     }));
                   }
                 },
@@ -137,11 +129,11 @@ class _drawarState extends State<drawar> {
                   if (widget.index == 3) {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (_) {
-                      return mainScreen();
+                      return MainScreen();
                     }));
                   } else {
                     Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return mainScreen();
+                      return MainScreen();
                     }));
                   }
                 },
@@ -161,11 +153,11 @@ class _drawarState extends State<drawar> {
                     if (widget.index == 4) {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (_) {
-                        return mainScreen();
+                        return MainScreen();
                       }));
                     } else {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return mainScreen();
+                        return MainScreen();
                       }));
                     }
                   },
@@ -183,16 +175,17 @@ class _drawarState extends State<drawar> {
                     if (widget.index == 5) {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (_) {
-                        return mainScreen();
+                        return MainScreen();
                       }));
                     } else {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return mainScreen();
+                        return MainScreen();
                       }));
                     }
                   },
                   selected: widget.index == 5 ? true : false,
-                  title: Text("المشاريع والخدمات", style: TextStyle(fontSize: 16)),
+                  title:
+                      Text("المشاريع والخدمات", style: TextStyle(fontSize: 16)),
                   leading: Icon(
                     Icons.card_travel,
                   ),
@@ -205,35 +198,35 @@ class _drawarState extends State<drawar> {
                     if (widget.index == 6) {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (_) {
-                        return mainScreen();
+                        return MainScreen();
                       }));
                     } else {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return mainScreen();
+                        return MainScreen();
                       }));
                     }
                   },
                   selected: widget.index == 6 ? true : false,
-                  title: Text("الهيكل التنظيمي",
-                      style: TextStyle(fontSize: 16)),
+                  title:
+                      Text("الهيكل التنظيمي", style: TextStyle(fontSize: 16)),
                   leading: Icon(Icons.playlist_add_check),
                 )),
             Directionality(
               textDirection: TextDirection.rtl,
               child: ListTile(
-              onTap: () {
-                    Scaffold.of(cont).openDrawer();
-                    if (widget.index == 6) {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) {
-                        return mainScreen();
-                      }));
-                    } else {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return mainScreen();
-                      }));
-                    }
-                  },
+                onTap: () {
+                  Scaffold.of(cont).openDrawer();
+                  if (widget.index == 6) {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (_) {
+                      return MainScreen();
+                    }));
+                  } else {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return MainScreen();
+                    }));
+                  }
+                },
                 selected: widget.index == 7 ? true : false,
                 title: Text("أوقات الدوام", style: TextStyle(fontSize: 16)),
                 leading: Icon(Icons.shopping_cart),
@@ -242,21 +235,22 @@ class _drawarState extends State<drawar> {
             Directionality(
               textDirection: TextDirection.rtl,
               child: ListTile(
-               onTap: () {
-                    Scaffold.of(cont).openDrawer();
-                    if (widget.index == 6) {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) {
-                        return mainScreen();
-                      }));
-                    } else {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return mainScreen();
-                      }));
-                    }
-                  },
+                onTap: () {
+                  Scaffold.of(cont).openDrawer();
+                  if (widget.index == 6) {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (_) {
+                      return MainScreen();
+                    }));
+                  } else {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return MainScreen();
+                    }));
+                  }
+                },
                 selected: widget.index == 8 ? true : false,
-                title: Text("الخطة الاستراتيجية", style: TextStyle(fontSize: 16)),
+                title:
+                    Text("الخطة الاستراتيجية", style: TextStyle(fontSize: 16)),
                 leading: Icon(Icons.settings),
               ),
             ),
@@ -268,17 +262,17 @@ class _drawarState extends State<drawar> {
                     if (widget.index == 6) {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (_) {
-                        return mainScreen();
+                        return MainScreen();
                       }));
                     } else {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return mainScreen();
+                        return MainScreen();
                       }));
                     }
                   },
                   selected: widget.index == 6 ? true : false,
-                  title: Text("معلومات التواصل",
-                      style: TextStyle(fontSize: 16)),
+                  title:
+                      Text("معلومات التواصل", style: TextStyle(fontSize: 16)),
                   leading: Icon(Icons.mail_outline),
                 )),
           ],

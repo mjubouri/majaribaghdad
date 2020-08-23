@@ -1,14 +1,12 @@
 import 'dart:io';
 
 import 'package:SewerBaghdad/models/PostModel.dart';
-import 'package:SewerBaghdad/models/createReportResponse.dart';
 import 'package:SewerBaghdad/models/sendReportBody.dart';
 import 'package:SewerBaghdad/repository/posts_repository.dart';
 import 'package:SewerBaghdad/ui/ui_element/alertUi.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:toast/toast.dart';
 
 abstract class ReportEvent extends Equatable {
@@ -17,8 +15,9 @@ abstract class ReportEvent extends Equatable {
 }
 
 class SendReport extends ReportEvent {
-  SendReportBody body;
-  BuildContext context;
+  final SendReportBody body;
+  final BuildContext context;
+
   SendReport(this.body, {this.context});
 
   @override
@@ -38,30 +37,31 @@ class SendingReport extends ReportState {}
 
 class SendingReportError extends ReportState {
   final string;
+
   SendingReportError(this.string);
 }
 
 class SendingReportNetworkError extends ReportState {}
 
 class ReportSendSuccussful extends ReportState {
-  final CreateReportResponse response;
+  final bool success;
 
-  ReportSendSuccussful({this.response});
+  ReportSendSuccussful({this.success});
 
   ReportSendSuccussful copyWith({
     PostModel allPosts,
   }) {
-    return ReportSendSuccussful(response: response ?? this.response);
+    return ReportSendSuccussful(success: success ?? this.success);
   }
 
   @override
-  List<Object> get props => [response];
+  List<Object> get props => [success];
 }
 
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
-  final PostsRepository Repo;
+  final PostsRepository repo;
 
-  ReportBloc({@required this.Repo}) : super(ReportUninitialized());
+  ReportBloc({@required this.repo}) : super(ReportUninitialized());
 
   @override
   Stream<ReportState> mapEventToState(ReportEvent event) async* {
@@ -70,9 +70,9 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       try {
         yield SendingReport();
 
-        final allPosts = await Repo.createFeedbck(event.body);
+        final allPosts = await repo.createFeedback(event.body);
 
-        yield ReportSendSuccussful(response: allPosts);
+        yield ReportSendSuccussful(success: allPosts);
         yield ReportUninitialized();
         showAlert(event.context);
         return;

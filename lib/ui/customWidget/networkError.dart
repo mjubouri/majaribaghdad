@@ -1,16 +1,12 @@
-
-
 import 'package:SewerBaghdad/bloc/allPostsBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-class networkError extends StatelessWidget {
+class NetworkError extends StatelessWidget {
   final msg;
-  bool flage;
-   
-  networkError(
-    this.msg);
+//  bool flage;
+
+  NetworkError(this.msg);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +41,8 @@ class networkError extends StatelessWidget {
                   ),
                   onPressed: () {
                     print("ui pressed");
-                   BlocProvider.of<AllPostsBloc>(context).add(FetchAllPosts(p: 1,flage:true));
+                    BlocProvider.of<AllPostsBloc>(context)
+                        .add(FetchAllPosts(p: 1, flage: true));
                   }),
             ),
           ),
@@ -54,4 +51,3 @@ class networkError extends StatelessWidget {
     ));
   }
 }
-

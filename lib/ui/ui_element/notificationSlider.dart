@@ -2,10 +2,10 @@ import 'package:SewerBaghdad/models/TickerPosts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class notificationSlider extends StatelessWidget {
-  TickerPosts notifications;
+class NotificationSlider extends StatelessWidget {
+  final TickerPosts notifications;
 
-  notificationSlider(
+  NotificationSlider(
     this.notifications, {
     Key key,
   }) : super(key: key);

@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-ProjectModel projectModelFromJson(String str) => ProjectModel.fromJson(json.decode(str));
+ProjectModel projectModelFromJson(String str) =>
+    ProjectModel.fromJson(json.decode(str));
 
 String projectModelToJson(ProjectModel data) => json.encode(data.toJson());
 
@@ -20,16 +21,21 @@ class ProjectModel {
   Meta meta;
 
   factory ProjectModel.fromJson(Map<String, dynamic> json) => ProjectModel(
-    data: json["data"] == null ? null : List<ProjectData>.from(json["data"].map((x) => ProjectData.fromJson(x))),
-    links: json["links"] == null ? null : Links.fromJson(json["links"]),
-    meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
-  );
+        data: json["data"] == null
+            ? null
+            : List<ProjectData>.from(
+                json["data"].map((x) => ProjectData.fromJson(x))),
+        links: json["links"] == null ? null : Links.fromJson(json["links"]),
+        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "data": data == null ? null : List<dynamic>.from(data.map((x) => x.toJson())),
-    "links": links == null ? null : links.toJson(),
-    "meta": meta == null ? null : meta.toJson(),
-  };
+        "data": data == null
+            ? null
+            : List<dynamic>.from(data.map((x) => x.toJson())),
+        "links": links == null ? null : links.toJson(),
+        "meta": meta == null ? null : meta.toJson(),
+      };
 }
 
 class ProjectData {
@@ -46,18 +52,18 @@ class ProjectData {
   String image;
 
   factory ProjectData.fromJson(Map<String, dynamic> json) => ProjectData(
-    id: json["id"] == null ? null : json["id"],
-    title: json["title"] == null ? null : json["title"],
-    content: json["content"] == null ? null : json["content"],
-    image: json["image"] == null ? null : json["image"],
-  );
+        id: json["id"] == null ? null : json["id"],
+        title: json["title"] == null ? null : json["title"],
+        content: json["content"] == null ? null : json["content"],
+        image: json["image"] == null ? null : json["image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "title": title == null ? null : title,
-    "content": content == null ? null : content,
-    "image": image == null ? null : image,
-  };
+        "id": id == null ? null : id,
+        "title": title == null ? null : title,
+        "content": content == null ? null : content,
+        "image": image == null ? null : image,
+      };
 }
 
 class Links {
@@ -74,18 +80,18 @@ class Links {
   dynamic next;
 
   factory Links.fromJson(Map<String, dynamic> json) => Links(
-    first: json["first"] == null ? null : json["first"],
-    last: json["last"] == null ? null : json["last"],
-    prev: json["prev"],
-    next: json["next"],
-  );
+        first: json["first"] == null ? null : json["first"],
+        last: json["last"] == null ? null : json["last"],
+        prev: json["prev"],
+        next: json["next"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "first": first == null ? null : first,
-    "last": last == null ? null : last,
-    "prev": prev,
-    "next": next,
-  };
+        "first": first == null ? null : first,
+        "last": last == null ? null : last,
+        "prev": prev,
+        "next": next,
+      };
 }
 
 class Meta {
@@ -108,22 +114,22 @@ class Meta {
   int total;
 
   factory Meta.fromJson(Map<String, dynamic> json) => Meta(
-    currentPage: json["current_page"] == null ? null : json["current_page"],
-    from: json["from"] == null ? null : json["from"],
-    lastPage: json["last_page"] == null ? null : json["last_page"],
-    path: json["path"] == null ? null : json["path"],
-    perPage: json["per_page"] == null ? null : json["per_page"],
-    to: json["to"] == null ? null : json["to"],
-    total: json["total"] == null ? null : json["total"],
-  );
+        currentPage: json["current_page"] == null ? null : json["current_page"],
+        from: json["from"] == null ? null : json["from"],
+        lastPage: json["last_page"] == null ? null : json["last_page"],
+        path: json["path"] == null ? null : json["path"],
+        perPage: json["per_page"] == null ? null : json["per_page"],
+        to: json["to"] == null ? null : json["to"],
+        total: json["total"] == null ? null : json["total"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "current_page": currentPage == null ? null : currentPage,
-    "from": from == null ? null : from,
-    "last_page": lastPage == null ? null : lastPage,
-    "path": path == null ? null : path,
-    "per_page": perPage == null ? null : perPage,
-    "to": to == null ? null : to,
-    "total": total == null ? null : total,
-  };
+        "current_page": currentPage == null ? null : currentPage,
+        "from": from == null ? null : from,
+        "last_page": lastPage == null ? null : lastPage,
+        "path": path == null ? null : path,
+        "per_page": perPage == null ? null : perPage,
+        "to": to == null ? null : to,
+        "total": total == null ? null : total,
+      };
 }

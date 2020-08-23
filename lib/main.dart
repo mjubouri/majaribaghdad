@@ -8,8 +8,10 @@ void main() => runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
         fontFamily: "Regular",
-        primaryColor: Colors.lightBlue[900],
-        accentColor: Colors.amber[600]),
+        primaryColor: Colors.deepOrangeAccent,
+        accentColor: Colors.amber[300],
+
+    ),
     home: MyApp()));
 
 class MyApp extends StatefulWidget {
@@ -25,6 +27,7 @@ class _MyAppState extends State<MyApp> {
 
   int _page = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
@@ -51,13 +54,14 @@ class _MyAppState extends State<MyApp> {
         return "الشكاوي";
       } else if (index == 2) {
         return "الخدمات";
-      }
+      } else return '';
     }
 
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(45.0),
           child: AppBar(
+            brightness: Brightness.dark,
             iconTheme: new IconThemeData(color: Colors.white),
             title: Directionality(
               child: Text(
@@ -120,30 +124,30 @@ class _MyAppState extends State<MyApp> {
 
   Widget selectedWidget(int index) {
     if (index == 0) {
-      return mainScreen();
+      return MainScreen();
     } else if (index == 1) {
-      return reportScreen();
+      return ReportScreen();
     } else if (index == 2) {
-      return servecesScreen();
-    }
+      return ServicesScreen();
+    } else return Container();
   }
-  // Future scan() async {
-  //   try {
-  //     String barcode = await BarcodeScanner.scan();
-  //     setState(() => barCode = barcode);
-  //   } on PlatformException catch (e) {
-  //     if (e.code == BarcodeScanner.CameraAccessDenied) {
-  //       setState(() {
-  //         barCode = 'The user did not grant the camera permission!';
-  //       });
-  //     } else {
-  //       setState(() => this.barCode = 'Unknown error: $e');
-  //     }
-  //   } on FormatException {
-  //     setState(() => this.barCode =
-  //         'null (User returned using the "back"-button before scanning anything. Result)');
-  //   } catch (e) {
-  //     setState(() => this.barCode = 'Unknown error: $e');
-  //   }
-  // }
+// Future scan() async {
+//   try {
+//     String barcode = await BarcodeScanner.scan();
+//     setState(() => barCode = barcode);
+//   } on PlatformException catch (e) {
+//     if (e.code == BarcodeScanner.CameraAccessDenied) {
+//       setState(() {
+//         barCode = 'The user did not grant the camera permission!';
+//       });
+//     } else {
+//       setState(() => this.barCode = 'Unknown error: $e');
+//     }
+//   } on FormatException {
+//     setState(() => this.barCode =
+//         'null (User returned using the "back"-button before scanning anything. Result)');
+//   } catch (e) {
+//     setState(() => this.barCode = 'Unknown error: $e');
+//   }
+// }
 }

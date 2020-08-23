@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 
-class cards extends StatelessWidget {
-  String s;
-  IconData icon;
-  cards(
-    this.s, this.icon) ;
+class Cards extends StatelessWidget {
+  final String s;
+  final IconData icon;
+
+  Cards(this.s, this.icon);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +31,8 @@ class cards extends StatelessWidget {
                               1.0
                             ],
                             colors: [
-                            Theme.of(context).primaryColor,
-                             Theme.of(context).primaryColor,
+                              Theme.of(context).primaryColor,
+                              Theme.of(context).primaryColor,
                             ])),
                     child: Icon(
                       icon,

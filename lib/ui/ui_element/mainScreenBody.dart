@@ -6,16 +6,15 @@ import 'package:SewerBaghdad/ui/customWidget/sliderSection.dart';
 import 'package:SewerBaghdad/ui/customWidget/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../allNewsScreen.dart';
 import '../displayPdf.dart';
 import '../ourProjects.dart';
-import 'mainBodyCrd.dart';
+import 'main_body_card.dart';
 
-class mainScreenBody extends StatelessWidget {
-  mainScreenBody({
+class MainScreenBody extends StatelessWidget {
+  MainScreenBody({
     Key key,
     @required this.refreshController,
     @required this.current,
@@ -24,6 +23,7 @@ class mainScreenBody extends StatelessWidget {
 
   final RefreshController refreshController;
   final int current;
+
   // final String pdfPath;
   final BannerModel banners;
 
@@ -61,7 +61,7 @@ class mainScreenBody extends StatelessWidget {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (_) {
-                                return allNews();
+                                return AllNews();
                               }));
                             },
                             child: Text("عرض الكل",
@@ -85,7 +85,7 @@ class mainScreenBody extends StatelessWidget {
                   ),
                 ),
               ),
-              sliderSection(current: current, banners: banners),
+              SliderSection(current: current, banners: banners),
               SizedBox(
                 height: 5,
               ),
@@ -118,11 +118,11 @@ class mainScreenBody extends StatelessWidget {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (_) {
-                                return ourProjects(
+                                return OurProjects(
                                     servicesTitle, servicesBody, "خدماتنا");
                               }));
                             },
-                            child: cards("خدماتنا", Icons.room_service),
+                            child: Cards("خدماتنا", Icons.room_service),
                           ),
                         ),
                         Expanded(
@@ -131,10 +131,10 @@ class mainScreenBody extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (_) {
-                                  return aboutUsScreen();
+                                  return AboutUsScreen();
                                 }));
                               },
-                              child: cards("تواصل معنا", Icons.contact_phone)),
+                              child: Cards("تواصل معنا", Icons.contact_phone)),
                         )
                       ],
                     ),
@@ -147,10 +147,10 @@ class mainScreenBody extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (_) {
-                                  return allProjectsScreen();
+                                  return AllProjectsScreen();
                                 }));
                               },
-                              child: cards(
+                              child: Cards(
                                   "مشاريع الدائرة", Icons.account_balance)),
                         ),
                         Expanded(
@@ -159,10 +159,10 @@ class mainScreenBody extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (_) {
-                                  return aboutUsScreen();
+                                  return AboutUsScreen();
                                 }));
                               },
-                              child: cards("أوقات الدوام", Icons.alarm)),
+                              child: Cards("أوقات الدوام", Icons.alarm)),
                         )
                       ],
                     ),
@@ -175,11 +175,11 @@ class mainScreenBody extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (_) {
-                                  return ourProjects(
+                                  return OurProjects(
                                       "علاقات الدائرة", relaitions, "علاقاتنا");
                                 }));
                               },
-                              child: cards("علاقاتنا", Icons.people)),
+                              child: Cards("علاقاتنا", Icons.people)),
                         ),
                         Expanded(
                           flex: 1,
@@ -193,7 +193,7 @@ class mainScreenBody extends StatelessWidget {
                                 );
                               },
                               child:
-                                  cards("الهيكل التنظيمي", Icons.insert_chart)),
+                                  Cards("الهيكل التنظيمي", Icons.insert_chart)),
                         )
                       ],
                     ),
@@ -206,11 +206,11 @@ class mainScreenBody extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (_) {
-                                  return ourProjects("نبذة تعريفية", aboutUs,
+                                  return OurProjects("نبذة تعريفية", aboutUs,
                                       "عن الدائرة", true);
                                 }));
                               },
-                              child: cards("نبذة تعريفية", Icons.info)),
+                              child: Cards("نبذة تعريفية", Icons.info)),
                         ),
                         Expanded(
                           flex: 1,
@@ -218,11 +218,11 @@ class mainScreenBody extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (_) {
-                                  return ourProjects(planTitle, planBody,
+                                  return OurProjects(planTitle, planBody,
                                       "الخطة الأستراتيجية");
                                 }));
                               },
-                              child: cards("الخطة الأستراتيجية",
+                              child: Cards("الخطة الأستراتيجية",
                                   Icons.playlist_add_check)),
                         )
                       ],
